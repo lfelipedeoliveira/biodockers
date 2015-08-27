@@ -7,36 +7,50 @@ RUN apt-get update -y; \
     apt-get install -y openjdk-7-jre-headless file; \
     apt-get install -y gcc; \
     apt-get install -y make; \
+    apt-get install -y unzip; \
+    apt-get install -y wget; \
     apt-get clean
 
-ADD https://github.com/lfelipedeoliveira/biodockers/blob/master/pgap-modif.tar.gz /tmp/pgap-modif.tar.gz
-RUN mkdir /pgap; \
-    tar xzf /tmp/pgap-modif.tar.gz --directory /pgap; \
-    rm /tmp/pgap-modif.tar.gz
+RUN wget https://github.com/lfelipedeoliveira/biodockers/archive/master.zip --no-check-certificate; \
+    unzip master.zip; \
+    tar xzf biodockers-master/pgap-modif.tar.gz --directory /; \
+    mv pgap-1.12/ pgap; \
 
-ADD http://mafft.cbrc.jp/alignment/software/mafft-7.245-with-extensions-src.tgz /tmp/mafft-7.245-with-extensions-src.tgz
-RUN mkdir //mafft; \
-    tar xzf /tmp/mafft-7.245-with-extensions-src.tgz --directory /mafft --strip-components=1; \
-    rm /tmp/mafft-7.245-with-extensions-src.tgz
 
-WORKDIR /mafft/core
+RUN wget http://mafft.cbrc.jp/alignment/software/mafft-7.245-with-extensions-src.tgz; \
+    tar xzf /mafft-7.245-with-extensions-src.tgz; \
+
+WORKDIR /mafft-7.245-with-extensions/core
 RUN make clean; \
     make; \
     make install
 
-ADD http://evolution.gs.washington.edu/phylip/download/phylip-3.696.tar.gz /tmp/phylip-3.696.tar.gz
-RUN mkdir /phylip
-    tar xzf /tmp/phylip-3.696.tar.gz --directory /phylip --strip-components=1; \
+WORKDIR /
+
+RUN wget http://evolution.gs.washington.edu/phylip/download/phylip-3.696.tar.gz; \
+    tar xzf phylip-3.696.tar.gz; \
+    mv phylip-3.696 phylip
 WORKDIR /phylip/src
 RUN make -f Makefile.unx install
+WORKDIR /
 
-ADD http://micans.org/mcl/src/mcl-14-137.tar.gz /tmp/mcl-14-137.tar.gz
-RUN mkdir /mcl; \
-    tar xzvf /tmp/mcl-14-137.tar.gz --directory /tmp --strip-components=1; \
-WORKDIR /tmp/mcl-14-137
+
+RUN wget http://micans.org/mcl/src/mcl-14-137.tar.gz; \
+    tar xzf mcl-14-137.tar.gz; \
+    mkdir /mcl; \
+WORKDIR /mcl-14-137
 RUN ./configure --prefix=/mcl; \
     make install
 
 WORKDIR /
+
 ADD ftp://ftp.ncbi.nih.gov/blast/executables/release//2.2.12/blast-2.2.12-x64-linux.tar.gz /tmp/blast-2.2.12-x64-linux.tar.gz
 RUN tar xzvf /tmp/blast-2.2.12-x64-linux.tar.gz; \
+
+
+RUN rm -r biodockers-master; \
+    rm master.zip; \
+    rm /mafft-7.245-with-extensions-src.tgz; \
+    rm -r /mafft-7.245-with-extensions; \
+    rm phylip-3.696.tar.gz; \
+    rm mcl-14-137.tar.gz
