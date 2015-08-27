@@ -14,11 +14,11 @@ RUN apt-get update -y; \
 RUN wget https://github.com/lfelipedeoliveira/biodockers/archive/master.zip --no-check-certificate; \
     unzip master.zip; \
     tar xzf biodockers-master/pgap-modif.tar.gz --directory /; \
-    mv pgap-1.12/ pgap; \
+    mv pgap-1.12/ pgap
 
 
 RUN wget http://mafft.cbrc.jp/alignment/software/mafft-7.245-with-extensions-src.tgz; \
-    tar xzf /mafft-7.245-with-extensions-src.tgz; \
+    tar xzf /mafft-7.245-with-extensions-src.tgz
 
 WORKDIR /mafft-7.245-with-extensions/core
 RUN make clean; \
@@ -30,6 +30,7 @@ WORKDIR /
 RUN wget http://evolution.gs.washington.edu/phylip/download/phylip-3.696.tar.gz; \
     tar xzf phylip-3.696.tar.gz; \
     mv phylip-3.696 phylip
+
 WORKDIR /phylip/src
 RUN make -f Makefile.unx install
 WORKDIR /
@@ -37,7 +38,7 @@ WORKDIR /
 
 RUN wget http://micans.org/mcl/src/mcl-14-137.tar.gz; \
     tar xzf mcl-14-137.tar.gz; \
-    mkdir /mcl; \
+    mkdir /mcl
 WORKDIR /mcl-14-137
 RUN ./configure --prefix=/mcl; \
     make install
