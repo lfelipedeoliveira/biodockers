@@ -45,13 +45,14 @@ RUN ./configure --prefix=/mcl; \
 
 WORKDIR /
 
-ADD ftp://ftp.ncbi.nih.gov/blast/executables/release//2.2.12/blast-2.2.12-x64-linux.tar.gz /tmp/blast-2.2.12-x64-linux.tar.gz
-RUN tar xzvf /tmp/blast-2.2.12-x64-linux.tar.gz; \
+RUN wget ftp://ftp.ncbi.nih.gov/blast/executables/release//2.2.12/blast-2.2.12-x64-linux.tar.gz; \
+    tar xzvf /blast-2.2.12-x64-linux.tar.gz; \
 
 
 RUN rm -r biodockers-master; \
-    rm master.zip; \
+    rm /master.zip; \
     rm /mafft-7.245-with-extensions-src.tgz; \
     rm -r /mafft-7.245-with-extensions; \
-    rm phylip-3.696.tar.gz; \
-    rm mcl-14-137.tar.gz
+    rm /phylip-3.696.tar.gz; \
+    rm /mcl-14-137.tar.gz; \
+    rm /blast-2.2.12-x64-linux.tar.gz
