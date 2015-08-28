@@ -59,4 +59,6 @@ RUN rm -r biodockers-master; \
     rm /blast-2.2.12-x64-linux.tar.gz
 
 RUN (echo y;echo o conf prerequisites_policy follow;echo o conf commit)|cpan; \
-    cpan Bio::AlignIO
+    cpan Bio::AlignIO; \
+    cpan Statistics::LineFit; \
+    cpan Statistics::Distributions; \
