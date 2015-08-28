@@ -9,6 +9,7 @@ RUN apt-get update -y; \
     apt-get install -y make; \
     apt-get install -y unzip; \
     apt-get install -y wget; \
+    apt-get install -y bioperl; \
     apt-get clean
 
 RUN wget https://github.com/lfelipedeoliveira/biodockers/archive/master.zip --no-check-certificate; \
@@ -56,3 +57,6 @@ RUN rm -r biodockers-master; \
     rm /phylip-3.696.tar.gz; \
     rm /mcl-14-137.tar.gz; \
     rm /blast-2.2.12-x64-linux.tar.gz
+
+RUN (echo y;echo o conf prerequisites_policy follow;echo o conf commit)|cpan; \
+    cpan Bio::AlignIO
