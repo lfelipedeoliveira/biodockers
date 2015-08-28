@@ -7,6 +7,7 @@ RUN apt-get update -y; \
     apt-get install -y openjdk-7-jre-headless file; \
     apt-get install -y gcc; \
     apt-get install -y make; \
+    apt-get install -y bioperl, \
     apt-get clean
 
 ADD https://github.com/lfelipedeoliveira/biodockers/blob/master/pgap-modif.tar.gz /tmp/pgap-modif.tar.gz
@@ -41,4 +42,5 @@ WORKDIR /
 ADD ftp://ftp.ncbi.nih.gov/blast/executables/release//2.2.12/blast-2.2.12-x64-linux.tar.gz /tmp/blast-2.2.12-x64-linux.tar.gz
 RUN tar xzvf /tmp/blast-2.2.12-x64-linux.tar.gz; \
 
-RUN cpan Bio::AlignIO
+RUN (echo y;echo o conf prerequisites_policy follow;echo o conf commit)|cpan; \
+    cpan Bio::AlignIO
