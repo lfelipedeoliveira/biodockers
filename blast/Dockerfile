@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:latest
 MAINTAINER lfelipedeoliveira, felipe@lfelipedeoliveira.com
 
 ENV DEBIAN_FRONTEND noninteractive
