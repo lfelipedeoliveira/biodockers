@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:latest
 ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER LFelipedeOliveira <felipe@lfelipedeoliveira.com>
 
@@ -31,3 +31,4 @@ RUN pip3 install celery; \
     pip3 install requests; \
     pip3 install sqlalchemy; \
     pip3 install regex
+
